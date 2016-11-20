@@ -9,10 +9,16 @@ public class GameCore : MonoBehaviour {
 
 	public static Maze mazeInstance;
 
+	public int ShiftCd = 30;
+
+	[SerializeField]
+	private float m_shiftCdTime = 0;
+
 	private void Start()
 	{
 		BeginGame();
-	}
+		m_shiftCdTime = ShiftCd;
+    }
 
 	private void Update()
 	{
@@ -23,16 +29,22 @@ public class GameCore : MonoBehaviour {
 		
 		if (mazeInstance!=null && mazeInstance.Ready)
 		{
-			mazeInstance.ShiftMaze();
+			m_shiftCdTime -= Time.deltaTime;
+			if (m_shiftCdTime < 0)
+			//if (Input.GetKeyDown(KeyCode.Space))
+			{
+				m_shiftCdTime = ShiftCd;
+				mazeInstance.ShiftMaze();
+			}
 		}
 	}
 
 	private void BeginGame()
 	{	
 		mazeInstance = Instantiate(mazePrefab) as Maze;
-		mazeInstance.Init();
-		//StartCoroutine(mazeInstance.Generate(mode));
-		mazeInstance.Generate(mode);
+		mazeInstance.Init(mode);
+		//StartCoroutine(mazeInstance.Generate());
+		mazeInstance.Generate();
 	}	
 	
 

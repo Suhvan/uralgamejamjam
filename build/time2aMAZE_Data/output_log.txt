@@ -14,23 +14,13 @@ Platform assembly: C:\Project\uralgamejamjam\build\time2aMAZE_Data\Managed\Unity
 Loading C:\Project\uralgamejamjam\build\time2aMAZE_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
 Platform assembly: C:\Project\uralgamejamjam\build\time2aMAZE_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
 Loading C:\Project\uralgamejamjam\build\time2aMAZE_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-- Completed reload, in  0.050 seconds
+- Completed reload, in  0.060 seconds
 Platform assembly: C:\Project\uralgamejamjam\build\time2aMAZE_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Project\uralgamejamjam\build\time2aMAZE_Data\Managed\System.dll (this message is harmless)
 desktop: 1920x1080 60Hz; virtual: 3600x1089 at -1680,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 1.289055 ms
-NullReferenceException: Object reference not set to an instance of an object
-  at Pool.ApplyToPool (.MazeCellEdge edge) [0x00000] in <filename unknown>:0 
-  at Pool.ReturnObject (.MazeCellEdge edge) [0x00000] in <filename unknown>:0 
-  at MazeCell.ClearEdges () [0x00000] in <filename unknown>:0 
-  at Maze.RemoveDarkCells () [0x00000] in <filename unknown>:0 
-  at Maze.ShiftMaze () [0x00000] in <filename unknown>:0 
-  at GameCore.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
+UnloadTime: 0.840339 ms
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 4540 -> priority: 1 
+  Thread -> id: 117c -> priority: 1 

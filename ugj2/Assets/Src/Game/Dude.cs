@@ -27,11 +27,11 @@ class Dude : MonoBehaviour
 
 	public void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Space))
+		/*if (Input.GetKeyDown(KeyCode.Space))
 		{
 			lighter = Instantiate(LighterPrefab);
 			lighter.transform.position = transform.position;
-		}
+		}*/
 	}
 }
 

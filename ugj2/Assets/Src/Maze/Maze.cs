@@ -48,7 +48,7 @@ public class Maze : MonoBehaviour {
 			}
 		}
 		//StartCoroutine(Generate());
-		Generate(GenerationMode.RANDOM);
+		Generate();
     }
 
 	private List<MazeCell> RemoveDarkCells()
@@ -75,20 +75,21 @@ public class Maze : MonoBehaviour {
 
 	public bool Ready { get; private set; } 
 
-	//public  IEnumerator Generate(GenerationMode mode)
-	public void Generate(GenerationMode mode)
+	//public  IEnumerator Generate()
+	public void Generate()
 	{	
 		while (activeCells.Count > 0)
 		{
 			//yield return null;
-			DoGenerationStep(mode);
+			DoGenerationStep();
         }
 		Ready = true;
     }
 
-	public void Init()
+	public void Init(GenerationMode mode)
 	{
 		Ready = false;
+		this.mode = mode;
 
 		cellPool = new MazeCell[size.x, size.y];
 
@@ -103,8 +104,6 @@ public class Maze : MonoBehaviour {
 		}
 
         activeCells.Add(GetCellFromPool(StartCoords));
-
-
 	}
 
 	public enum GenerationMode
@@ -115,7 +114,10 @@ public class Maze : MonoBehaviour {
 		RANDOM
 	}
 
-	private void DoGenerationStep(GenerationMode mode)
+	private GenerationMode mode;
+
+
+	private void DoGenerationStep()
 	{
 		int currentIndex = 0;
         switch (mode)
@@ -143,9 +145,9 @@ public class Maze : MonoBehaviour {
 		}
 		MazeDirection direction = currentCell.RandomUninitializedDirection;
 		IntVector2 coordinates = currentCell.coordinates + direction.ToIntVector2();
+		MazeCell neighbor = GetCell(coordinates);
 		if (ContainsCoordinates(coordinates) && GetCell(coordinates) == null)
-		{
-			MazeCell neighbor = GetCell(coordinates);
+		{	
 			if (neighbor == null)
 			{
 				neighbor = GetCellFromPool(coordinates);
@@ -159,7 +161,10 @@ public class Maze : MonoBehaviour {
 		}
 		else
 		{
-			CreateWall(currentCell, GetCell(coordinates), direction);
+			if (neighbor != null && neighbor.Lit )
+				CreatePassage(currentCell, neighbor, direction);
+			else
+				CreateWall(currentCell, GetCell(coordinates), direction);
 		}
 	}
 
