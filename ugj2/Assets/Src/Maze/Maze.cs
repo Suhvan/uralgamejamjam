@@ -14,8 +14,6 @@ public class Maze : MonoBehaviour {
 
 	private MazeCell[,] cells;
 
-	public float generationStepDelay = 0.01f;
-
 	private List<MazeCell> activeCells = new List<MazeCell>();
 
 	public IntVector2 StartCoords
@@ -35,15 +33,15 @@ public class Maze : MonoBehaviour {
 	
 	}
 
-	public IEnumerator Generate()
-	{
-		//WaitForSeconds delay = new WaitForSeconds(generationStepDelay);
+	//public  IEnumerator Generate()
+	public void Generate()
+	{	
 		cells = new MazeCell[size.x, size.y];
 		Init();
         IntVector2 coordinates = StartCoords;
 		while (activeCells.Count > 0)
 		{
-			yield return null;
+			//yield return null;
 			DoGenerationStep();
         }
 	}

@@ -23,7 +23,8 @@ public class GameCore : MonoBehaviour {
 	private void BeginGame()
 	{
 		mazeInstance = Instantiate(mazePrefab) as Maze;
-		StartCoroutine(mazeInstance.Generate());
+		//StartCoroutine(mazeInstance.Generate());
+		mazeInstance.Generate();
 	}
 
 	private void RestartGame()
