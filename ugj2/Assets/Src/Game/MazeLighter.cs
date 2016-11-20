@@ -12,6 +12,7 @@ class MazeLighter : MonoBehaviour
 		}
 	}
 
+
 	void OnTriggerExit2D(Collider2D other)
 	{
 		var cell = other.gameObject.GetComponent<MazeCell>();

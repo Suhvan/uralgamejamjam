@@ -8,12 +8,16 @@ class Dude : MonoBehaviour
 
 	Rigidbody2D body;
 
-	public MazeCell currentCell;
+	[SerializeField]
+	private MazeLighter LighterPrefab;
+
+	private MazeLighter lighter;
 
 	void Start()
 	{
 		body = GetComponent<Rigidbody2D>();
-	}
+		
+    }
 
 
 	void FixedUpdate()
@@ -22,8 +26,12 @@ class Dude : MonoBehaviour
 	}
 
 	public void Update()
-	{	
-		
+	{
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			lighter = Instantiate(LighterPrefab);
+			lighter.transform.position = transform.position;
+		}
 	}
 }
 

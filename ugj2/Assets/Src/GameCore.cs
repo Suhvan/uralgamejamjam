@@ -7,7 +7,7 @@ public class GameCore : MonoBehaviour {
 
 	public Maze.GenerationMode mode;
 
-	private Maze mazeInstance;
+	public static Maze mazeInstance;
 
 	private void Start()
 	{
@@ -20,8 +20,7 @@ public class GameCore : MonoBehaviour {
 		{
 			RestartGame();
 		}
-
-		//if (Input.GetKeyDown(KeyCode.Space))
+		
 		if (mazeInstance!=null && mazeInstance.Ready)
 		{
 			mazeInstance.ShiftMaze();

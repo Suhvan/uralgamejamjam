@@ -35,24 +35,35 @@ public class MazeCell : MonoBehaviour {
 		}
 	}
 
-	private bool m_lit;
+	[SerializeField]
+	private int m_litSrc;
 
 	public bool Lit
 	{
         get
 		{
-			return m_lit;
+			return m_litSrc >0;
 		}
 		set
 		{
-			m_lit = value;
-			if (SR != null)
+			if (value)
 			{
-				if (value)
-					SR.color = Color.green;
-				else
-					SR.color = Color.white;
+				m_litSrc++;
 			}
+			else
+			{
+				m_litSrc--;
+			}
+
+			if (Lit)
+			{
+				SR.color = Color.green;
+			}
+			else
+			{
+				SR.color = Color.white;
+			}
+
 		}
 	}
 
@@ -61,14 +72,24 @@ public class MazeCell : MonoBehaviour {
 		for (int i = 0; i < MazeDirections.Count; i++)
 		{
 			if (edges[i].otherCell == null || !edges[i].otherCell.Lit)
-			{
-				Destroy(edges[i].gameObject);
+			{	
+				GameCore.mazeInstance.mazePool.ReturnObject(edges[i]);
 				edges[i] = null;
                 initializedEdgeCount--;
             }
 		}
 	}
-		 
+
+	public void ClearEdges()
+	{
+		for (int i = 0; i < MazeDirections.Count; i++)
+		{	
+			GameCore.mazeInstance.mazePool.ReturnObject(edges[i]);
+			edges[i] = null;
+			initializedEdgeCount--;
+		}
+	}
+
 
 	public void SetEdge(MazeDirection direction, MazeCellEdge edge)
 	{

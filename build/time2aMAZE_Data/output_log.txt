@@ -21,6 +21,16 @@ desktop: 1920x1080 60Hz; virtual: 3600x1089 at -1680,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 1.137024 ms
+UnloadTime: 1.289055 ms
+NullReferenceException: Object reference not set to an instance of an object
+  at Pool.ApplyToPool (.MazeCellEdge edge) [0x00000] in <filename unknown>:0 
+  at Pool.ReturnObject (.MazeCellEdge edge) [0x00000] in <filename unknown>:0 
+  at MazeCell.ClearEdges () [0x00000] in <filename unknown>:0 
+  at Maze.RemoveDarkCells () [0x00000] in <filename unknown>:0 
+  at Maze.ShiftMaze () [0x00000] in <filename unknown>:0 
+  at GameCore.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 3b38 -> priority: 1 
+  Thread -> id: 4540 -> priority: 1 
