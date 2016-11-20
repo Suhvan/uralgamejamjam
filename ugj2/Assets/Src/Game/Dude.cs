@@ -8,6 +8,8 @@ class Dude : MonoBehaviour
 
 	Rigidbody2D body;
 
+	public MazeCell currentCell;
+
 	void Start()
 	{
 		body = GetComponent<Rigidbody2D>();
@@ -17,6 +19,11 @@ class Dude : MonoBehaviour
 	void FixedUpdate()
 	{
 		body.velocity = new Vector2(Input.GetAxis("Horizontal") * maxSpeed, Input.GetAxis("Vertical") * maxSpeed);
+	}
+
+	public void Update()
+	{	
+		
 	}
 }
 

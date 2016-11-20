@@ -5,6 +5,8 @@ public class GameCore : MonoBehaviour {
 
 	public Maze mazePrefab;
 
+	public Maze.GenerationMode mode;
+
 	private Maze mazeInstance;
 
 	private void Start()
@@ -14,18 +16,26 @@ public class GameCore : MonoBehaviour {
 
 	private void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Space))
+		if (Input.GetKeyDown(KeyCode.R))
 		{
 			RestartGame();
+		}
+
+		//if (Input.GetKeyDown(KeyCode.Space))
+		if (mazeInstance!=null && mazeInstance.Ready)
+		{
+			mazeInstance.ShiftMaze();
 		}
 	}
 
 	private void BeginGame()
-	{
+	{	
 		mazeInstance = Instantiate(mazePrefab) as Maze;
-		//StartCoroutine(mazeInstance.Generate());
-		mazeInstance.Generate();
-	}
+		mazeInstance.Init();
+		//StartCoroutine(mazeInstance.Generate(mode));
+		mazeInstance.Generate(mode);
+	}	
+	
 
 	private void RestartGame()
 	{

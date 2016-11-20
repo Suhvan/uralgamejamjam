@@ -14,13 +14,13 @@ Platform assembly: C:\Project\uralgamejamjam\build\time2aMAZE_Data\Managed\Unity
 Loading C:\Project\uralgamejamjam\build\time2aMAZE_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
 Platform assembly: C:\Project\uralgamejamjam\build\time2aMAZE_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
 Loading C:\Project\uralgamejamjam\build\time2aMAZE_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-- Completed reload, in  0.041 seconds
+- Completed reload, in  0.050 seconds
 Platform assembly: C:\Project\uralgamejamjam\build\time2aMAZE_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Project\uralgamejamjam\build\time2aMAZE_Data\Managed\System.dll (this message is harmless)
 desktop: 1920x1080 60Hz; virtual: 3600x1089 at -1680,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 0.838415 ms
+UnloadTime: 1.137024 ms
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 1f10 -> priority: 1 
+  Thread -> id: 3b38 -> priority: 1 

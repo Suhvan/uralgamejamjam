@@ -33,27 +33,91 @@ public class Maze : MonoBehaviour {
 	
 	}
 
-	//public  IEnumerator Generate()
-	public void Generate()
+	public void ShiftMaze()
+	{
+		Ready = false;
+		activeCells = new List<MazeCell>();
+		var litCells = RemoveDarkCells();
+		foreach (var cell in litCells)
+		{
+			cell.ValidateEdges();
+			if (!cell.IsFullyInitialized)
+			{
+				activeCells.Add(cell);
+			}
+		}
+		//StartCoroutine(Generate());
+		Generate(GenerationMode.RANDOM);
+    }
+
+	private List<MazeCell> RemoveDarkCells()
+	{
+		List<MazeCell> litCells = new List<MazeCell>();
+        for (int x = 0; x < size.x; x++)
+		{
+			for (int y=0; y < size.y; y++)
+			{
+				if (!cells[x, y].Lit)
+				{
+					Destroy(cells[x, y].gameObject);
+					cells[x, y] = null;
+                }
+				else
+				{
+					litCells.Add(cells[x, y]);
+                }
+			}
+		}
+		return litCells;
+    }
+
+	public bool Ready { get; private set; } 
+
+	//public  IEnumerator Generate(GenerationMode mode)
+	public void Generate(GenerationMode mode)
 	{	
-		cells = new MazeCell[size.x, size.y];
-		Init();
-        IntVector2 coordinates = StartCoords;
 		while (activeCells.Count > 0)
 		{
 			//yield return null;
-			DoGenerationStep();
+			DoGenerationStep(mode);
         }
-	}
+		Ready = true;
+    }
 
-	private void Init()
+	public void Init()
 	{
+		Ready = false;
+		cells = new MazeCell[size.x, size.y];
 		activeCells.Add(CreateCell(StartCoords));
 	}
 
-	private void DoGenerationStep()
-	{	
-		int currentIndex = activeCells.Count - 1;
+	public enum GenerationMode
+	{
+		FIRST,
+		LAST, 
+		MEDIUM,
+		RANDOM
+	}
+
+	private void DoGenerationStep(GenerationMode mode)
+	{
+		int currentIndex = 0;
+        switch (mode)
+        {
+			case GenerationMode.FIRST:
+				currentIndex = 0;
+				break;
+			case GenerationMode.LAST:
+				currentIndex = activeCells.Count - 1;
+				break;
+			case GenerationMode.RANDOM:
+				currentIndex = Random.Range(0, activeCells.Count);
+				break;
+			case GenerationMode.MEDIUM:
+				currentIndex = activeCells.Count / 2;
+				break;
+		}
+		
 		MazeCell currentCell = activeCells[currentIndex];
 
 		if (currentCell.IsFullyInitialized)
@@ -79,7 +143,7 @@ public class Maze : MonoBehaviour {
 		}
 		else
 		{
-			CreateWall(currentCell, null, direction);
+			CreateWall(currentCell, GetCell(coordinates), direction);
 		}
 	}
 
@@ -105,6 +169,8 @@ public class Maze : MonoBehaviour {
 
 	public MazeCell GetCell(IntVector2 coordinates)
 	{
+		if (!ContainsCoordinates(coordinates))
+			return null;
 		return cells[coordinates.x, coordinates.y];
 	}
 
