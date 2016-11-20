@@ -37,13 +37,13 @@ public class Maze : MonoBehaviour {
 
 	public IEnumerator Generate()
 	{
-		WaitForSeconds delay = new WaitForSeconds(generationStepDelay);
+		//WaitForSeconds delay = new WaitForSeconds(generationStepDelay);
 		cells = new MazeCell[size.x, size.y];
 		Init();
         IntVector2 coordinates = StartCoords;
 		while (activeCells.Count > 0)
 		{
-			yield return delay;
+			yield return null;
 			DoGenerationStep();
         }
 	}
@@ -54,11 +54,16 @@ public class Maze : MonoBehaviour {
 	}
 
 	private void DoGenerationStep()
-	{
+	{	
 		int currentIndex = activeCells.Count - 1;
 		MazeCell currentCell = activeCells[currentIndex];
 
-		MazeDirection direction = MazeDirections.RandomValue;
+		if (currentCell.IsFullyInitialized)
+		{
+			activeCells.RemoveAt(currentIndex);
+			return;
+		}
+		MazeDirection direction = currentCell.RandomUninitializedDirection;
 		IntVector2 coordinates = currentCell.coordinates + direction.ToIntVector2();
 		if (ContainsCoordinates(coordinates) && GetCell(coordinates) == null)
 		{
@@ -71,14 +76,12 @@ public class Maze : MonoBehaviour {
 			}
 			else
 			{
-				CreateWall(currentCell, neighbor, direction);
-				activeCells.RemoveAt(currentIndex);
+				CreateWall(currentCell, neighbor, direction);				
 			}
 		}
 		else
 		{
 			CreateWall(currentCell, null, direction);
-			activeCells.RemoveAt(currentIndex);
 		}
 	}
 
