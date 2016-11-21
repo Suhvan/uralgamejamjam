@@ -29,8 +29,10 @@ public class Pool : MonoBehaviour
 
 	public void PreparePool(IntVector2 mazeSize)
 	{
-
+		
 	}
+
+	
 
 	public MazeWall GetWall()
 	{

@@ -5,6 +5,14 @@ public class MazeCell : MonoBehaviour {
 
 	public IntVector2 coordinates;
 
+	public MazeRoom room;
+
+	public void Initialize(MazeRoom room)
+	{
+		this.room = room;
+		SR.sprite = room.Settings.GetRandomSprite();
+    }
+
 	private MazeCellEdge[] edges = new MazeCellEdge[MazeDirections.Count];
 
 	public MazeCellEdge GetEdge(MazeDirection direction)
@@ -57,15 +65,20 @@ public class MazeCell : MonoBehaviour {
 
 			if (Lit)
 			{
-				SR.color = Color.green;
+				//SR.color = Color.green;
 			}
 			else
 			{
-				SR.color = Color.white;
+				//SR.color = Color.white;
 			}
 
 		}
 	}
+
+	public void Start()
+	{
+	//	SR.sprite = GameCore.mazeInstance.mazePool.GetRandomSprite();
+    }
 
 	public void ValidateEdges()
 	{
