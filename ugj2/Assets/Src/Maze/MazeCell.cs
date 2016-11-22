@@ -77,8 +77,9 @@ public class MazeCell : MonoBehaviour {
 
 	public void Start()
 	{
-	//	SR.sprite = GameCore.mazeInstance.mazePool.GetRandomSprite();
-    }
+		GetComponent<Renderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+		GetComponent<Renderer>().receiveShadows = true;
+	}
 
 	public void ValidateEdges()
 	{
