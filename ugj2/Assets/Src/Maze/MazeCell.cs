@@ -10,7 +10,7 @@ public class MazeCell : MonoBehaviour {
 	public void Initialize(MazeRoom room)
 	{
 		this.room = room;
-		SR.sprite = room.Settings.GetRandomSprite();
+		SR.sprite = room.Settings.GetRandomSprite( SpriteType.Cell);
     }
 
 	private MazeCellEdge[] edges = new MazeCellEdge[MazeDirections.Count];
@@ -69,7 +69,7 @@ public class MazeCell : MonoBehaviour {
 			}
 			else
 			{
-				//SR.color = Color.white;
+			//	SR.color = Color.white;
 			}
 
 		}
@@ -108,6 +108,7 @@ public class MazeCell : MonoBehaviour {
 	public void SetEdge(MazeDirection direction, MazeCellEdge edge)
 	{
 		edges[(int)direction] = edge;
+		edge.EnableRoomSettings();
 		initializedEdgeCount += 1;
 	}
 

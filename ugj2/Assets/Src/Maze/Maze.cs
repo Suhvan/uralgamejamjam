@@ -191,23 +191,23 @@ public class Maze : MonoBehaviour {
 
 
 	private void CreatePassage(MazeCell cell, MazeCell otherCell, MazeDirection direction, bool doorsPissible = true )
-	{	
-        MazePassage passage = mazePool.GetPassage();
+	{
+		MazePassage passage = mazePool.GetPassage();
+		if (doorsPissible)
+		{
+			passage.DoorPassage = Random.value < doorProbability;
+			if (passage.DoorPassage)
+			{
+				otherCell.Initialize(CreateRoom(cell.room.SettingsIndex));
+			}
+			else
+			{
+				otherCell.Initialize(cell.room);
+			}
+		}
 		passage.Initialize(cell, otherCell, direction);
 		passage = mazePool.GetPassage();
 		passage.Initialize(otherCell, cell, direction.GetOpposite());
-		passage.DoorPassage = Random.value < doorProbability;
-		if (!doorsPissible)
-			return;
-
-		if (Random.value < doorProbability )
-		{
-			otherCell.Initialize(CreateRoom(cell.room.SettingsIndex));
-		}
-		else
-		{
-			otherCell.Initialize(cell.room);
-		}
 	}
 
 	private void CreateWall(MazeCell cell, MazeCell otherCell, MazeDirection direction)

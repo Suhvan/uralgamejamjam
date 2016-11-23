@@ -4,13 +4,12 @@ using System.Collections;
 public class MazeWall : MazeCellEdge
 {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+	[SerializeField]
+	private SpriteRenderer wallSprite;
+
+
+	public override void EnableRoomSettings()
+	{
+		wallSprite.sprite = cell.room.Settings.GetRandomSprite(SpriteType.Wall);
 	}
 }

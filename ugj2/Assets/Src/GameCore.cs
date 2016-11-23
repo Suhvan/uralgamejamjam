@@ -12,6 +12,9 @@ public class GameCore : MonoBehaviour {
 	public int ShiftCd = 30;
 
 	[SerializeField]
+	GameObject BigLight;
+
+	[SerializeField]
 	private float m_shiftCdTime = 0;
 
 	private void Start()
@@ -26,7 +29,12 @@ public class GameCore : MonoBehaviour {
 		{
 			RestartGame();
 		}
-		
+
+		if (Input.GetKeyDown(KeyCode.Tab))
+		{
+			BigLight.SetActive(!BigLight.activeSelf);
+		}
+
 		if (mazeInstance!=null && mazeInstance.Ready)
 		{
 			m_shiftCdTime -= Time.deltaTime;
