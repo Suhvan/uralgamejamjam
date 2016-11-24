@@ -127,7 +127,7 @@ public class Maze : MonoBehaviour {
 	{	
 		while (activeCells.Count > 0)
 		{
-			//yield return null;
+	//		yield return new WaitForSeconds(0.01f);
 			DoGenerationStep();
         }
 		Ready = true;
@@ -219,7 +219,7 @@ public class Maze : MonoBehaviour {
 		else if (neighbor != null && neighbor.Component != currentCell.Component)
 		{
 			SpreadComponent(neighbor, currentCell.Component);
-			CreatePassage(currentCell, neighbor, direction);
+			CreatePassage(currentCell, neighbor, direction, doorsPissible: false);
 		}
 		else
 		{
