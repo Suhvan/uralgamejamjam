@@ -9,6 +9,16 @@ public class MazePassage : MazeCellEdge
 	[SerializeField]
 	private SpriteRenderer passSprite;
 
+	public bool SameComponents
+	{
+        get
+		{
+			if (otherCell == null || !otherCell.Lit)
+				return true;
+			return cell.Component == otherCell.Component;
+		}
+	}
+
 
 	public override void EnableRoomSettings()
 	{

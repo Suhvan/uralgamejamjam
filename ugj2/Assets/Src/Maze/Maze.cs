@@ -20,6 +20,8 @@ public class Maze : MonoBehaviour {
 
 	private List<MazeRoom> rooms = new List<MazeRoom>();
 
+	private int m_compIdCount = 0;
+
 	[Range(0f, 1f)]
 	public float doorProbability;
 
@@ -45,20 +47,56 @@ public class Maze : MonoBehaviour {
 
 	public void ShiftMaze()
 	{
+		m_compIdCount = 0;
 		Ready = false;
 		activeCells = new List<MazeCell>();
-		var litCells = RemoveDarkCells();
-		foreach (var cell in litCells)
+		var litCells = RemoveDarkCells();		
+        foreach (var cell in litCells)
 		{
+			cell.Component = -1;
 			cell.ValidateEdges();
 			if (!cell.IsFullyInitialized)
 			{
 				activeCells.Add(cell);
 			}
 		}
+
+		MakeComponents(litCells);
 		//StartCoroutine(Generate());
 		Generate();
     }
+
+	public void MakeComponents(List<MazeCell> litCells)
+	{
+		var curComp = new List<MazeCell>();
+		while (litCells.Count > 0)
+		{	
+			curComp.Add(litCells[0]);
+			while (curComp.Count > 0)
+			{
+				MazeCell currentCell = curComp[0];
+				if (currentCell.Component == -1)
+					currentCell.Component = m_compIdCount++;
+				curComp.AddRange(currentCell.WaveSearch());
+				curComp.Remove(currentCell);
+				litCells.Remove(currentCell);
+			}
+        }
+	}
+
+	public void SpreadComponent(MazeCell cell, int comp)
+	{
+		List<MazeCell> curComp = new List<MazeCell>();
+		curComp.Add(cell);
+        while (curComp.Count > 0)
+		{
+			MazeCell currentCell = curComp[0];
+			if (currentCell.Component != comp)
+				currentCell.Component = comp;
+            curComp.AddRange(currentCell.WaveSearch());
+			curComp.Remove(currentCell);
+		}
+	}
 
 	private List<MazeCell> RemoveDarkCells()
 	{
@@ -117,7 +155,7 @@ public class Maze : MonoBehaviour {
             }
 		}
 		var newCell = GetCellFromPool(StartCoords);
-		newCell.Initialize(CreateRoom(-1));
+		newCell.Initialize(CreateRoom(-1), m_compIdCount++);
 		activeCells.Add(newCell);
 	}
 
@@ -178,8 +216,9 @@ public class Maze : MonoBehaviour {
 		{
 			CreatePassage(currentCell, neighbor, direction, doorsPissible: false);
 		}
-		else if (neighbor != null && neighbor.Lit)
+		else if (neighbor != null && neighbor.Component != currentCell.Component)
 		{
+			SpreadComponent(neighbor, currentCell.Component);
 			CreatePassage(currentCell, neighbor, direction);
 		}
 		else
@@ -198,11 +237,11 @@ public class Maze : MonoBehaviour {
 			passage.DoorPassage = Random.value < doorProbability;
 			if (passage.DoorPassage)
 			{
-				otherCell.Initialize(CreateRoom(cell.room.SettingsIndex));
+				otherCell.Initialize(CreateRoom(cell.room.SettingsIndex), cell.Component);
 			}
 			else
 			{
-				otherCell.Initialize(cell.room);
+				otherCell.Initialize(cell.room, cell.Component);
 			}
 		}
 		passage.Initialize(cell, otherCell, direction);

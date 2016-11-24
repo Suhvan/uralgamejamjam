@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class MazeCell : MonoBehaviour {
 
@@ -7,9 +8,12 @@ public class MazeCell : MonoBehaviour {
 
 	public MazeRoom room;
 
-	public void Initialize(MazeRoom room)
+	public int Component = -1;
+
+	public void Initialize(MazeRoom room, int component)
 	{
-		this.room = room;
+		Component = component;
+        this.room = room;
 		SR.sprite = room.Settings.GetRandomSprite( SpriteType.Cell);
     }
 
@@ -69,7 +73,7 @@ public class MazeCell : MonoBehaviour {
 			}
 			else
 			{
-			//	SR.color = Color.white;
+				//SR.color = Color.white;
 			}
 
 		}
@@ -104,12 +108,43 @@ public class MazeCell : MonoBehaviour {
 		}
 	}
 
-
 	public void SetEdge(MazeDirection direction, MazeCellEdge edge)
 	{
 		edges[(int)direction] = edge;
 		edge.EnableRoomSettings();
 		initializedEdgeCount += 1;
+	}
+
+	public List<MazeCell> WaveSearch()
+	{
+		List<MazeCell> res = new List<MazeCell>();
+		foreach (var edge in edges)
+		{
+			MazePassage mp = edge as MazePassage;
+			if (mp != null && !mp.SameComponents)
+			{
+				res.Add(mp.otherCell);
+				mp.otherCell.Component = Component;
+            }
+		}
+		return res;
+    }
+
+	public MazeDirection RandomPassage
+	{
+		get
+		{	
+            int skips = Random.Range(0, MazeDirections.Count);
+			for (int i = 0; i < MazeDirections.Count; i++)
+			{
+				int index = (skips + i) % MazeDirections.Count;
+                if (edges[index] != null && edges[index] is MazePassage)
+				{
+					return (MazeDirection)index;
+				}
+			}
+			throw new System.InvalidOperationException("MazeCell has no passage.");
+		}
 	}
 
 	public MazeDirection RandomUninitializedDirection
