@@ -4,13 +4,34 @@ public class Zombie : MonoBehaviour {
 
 	public MazeCell curCell;
 
-	public MazeDirection curDirection;
+	private MazeDirection _curDirection;
+	public MazeDirection curDirection
+	{
+		get
+		{
+			return _curDirection;
+		}
+		set
+		{
+			_curDirection = value;
+			zombieAnim.SetInteger("Direction", (int)curDirection);
+			zombieAnim.SetTrigger("DirectionChange");
+			eyes.sprite = GameCore.instance.ZombieEyeSprites[(int)curDirection];
+		}
+
+	}
 
 	public bool decidedDirection = false;
 
 	public bool MoveInProgress;
 
 	private Vector2 target;
+
+	[SerializeField]
+	private Animator zombieAnim;
+
+	[SerializeField]
+	private SpriteRenderer eyes;
 
 	[SerializeField]
 	private float speed;

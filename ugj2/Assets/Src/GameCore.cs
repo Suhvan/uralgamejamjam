@@ -9,6 +9,8 @@ public class GameCore : MonoBehaviour {
 
 	public static Maze mazeInstance;
 
+	public static GameCore instance { private set; get; }
+
 	public int ShiftCd = 30;
 
 	[SerializeField]
@@ -23,8 +25,11 @@ public class GameCore : MonoBehaviour {
 	[SerializeField]
 	Zombie zPrefab;
 
+	public Sprite[] ZombieEyeSprites;
+
 	private void Start()
 	{
+		instance = this;
 		Destroy( FindObjectOfType<Maze>().gameObject);
 		Application.targetFrameRate = 30;
 		BeginGame();
