@@ -23,6 +23,8 @@ public class GameCore : MonoBehaviour {
 	[SerializeField]
 	Dude dude;
 
+	public Dude Player { get { return dude; } }
+
 	[SerializeField]
 	private float m_shiftCdTime = 0;
 

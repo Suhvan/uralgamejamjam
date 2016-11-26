@@ -1,7 +1,7 @@
 ﻿
 using UnityEngine;
 
-class Dude : MonoBehaviour
+public class Dude : MonoBehaviour
 {
 	[SerializeField]
 	private float maxSpeed = 10.0f;
@@ -19,7 +19,7 @@ class Dude : MonoBehaviour
 
 	private MazeLighter lighter;
 
-	public IntVector2 curCell;
+	public IntVector2 coordinates;
 
 	private MazeDirection _lightDirection;
 
@@ -117,7 +117,7 @@ class Dude : MonoBehaviour
 
 		lighter.transform.rotation = Quaternion.Euler(0,0, angle - 90);
 
-		curCell = MazeCoords.WorldToCellCoords(transform.position);
+		coordinates = MazeCoords.WorldToCellCoords(transform.position);
 		if (Input.GetKeyDown(KeyCode.P))
 		{
 			manAnim.enabled = !manAnim.enabled;

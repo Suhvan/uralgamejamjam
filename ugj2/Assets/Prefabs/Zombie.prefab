@@ -26,7 +26,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1000013239507130
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,6 +150,7 @@ MonoBehaviour:
   zombieAnim: {fileID: 95000013518141590}
   eyes: {fileID: 212000012481276242}
   speed: 0.5
+  srchMaxDepth: 5
 --- !u!212 &212000012481276242
 SpriteRenderer:
   m_ObjectHideFlags: 1
