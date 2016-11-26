@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GameCore : MonoBehaviour {
 
@@ -17,6 +18,9 @@ public class GameCore : MonoBehaviour {
 	GameObject BigLight;
 
 	[SerializeField]
+	Transform dudeStartPoint;
+
+	[SerializeField]
 	Dude dude;
 
 	[SerializeField]
@@ -26,6 +30,8 @@ public class GameCore : MonoBehaviour {
 	Zombie zPrefab;
 
 	public Sprite[] ZombieEyeSprites;
+
+	private List<Zombie> zombies = new List<Zombie>();
 
 	private void Start()
 	{
@@ -50,7 +56,7 @@ public class GameCore : MonoBehaviour {
 
 		if (Input.GetKeyDown(KeyCode.Z))
 		{
-			Instantiate(zPrefab);
+			zombies.Add(Instantiate(zPrefab));
 		}
 
 		if (mazeInstance!=null && mazeInstance.Ready)
@@ -70,13 +76,19 @@ public class GameCore : MonoBehaviour {
 		mazeInstance = Instantiate(mazePrefab) as Maze;
 		mazeInstance.Init(mode);
 		//StartCoroutine(mazeInstance.Generate());
-		mazeInstance.Generate();
-		//dude.gameObject.transform.position = MazeCoords.CellToWorldCoords(MazeCoords.RandomCoords);
+        mazeInstance.Generate();
+		dude.gameObject.transform.position = dudeStartPoint.position;
 	}	
 	
 
-	private void RestartGame()
+	public void RestartGame()
 	{
+		foreach (var z in zombies)
+		{
+			Destroy(z.gameObject);
+		}
+		zombies.Clear();
+
 		StopAllCoroutines();
 		Destroy(mazeInstance.gameObject);
 		BeginGame();

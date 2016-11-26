@@ -24,6 +24,7 @@ public class Maze : MonoBehaviour {
 
 	[SerializeField]
 	private IntVector2 startCellCoords;
+
 	[SerializeField]
 	private int startRoomSetings;
 	[SerializeField]

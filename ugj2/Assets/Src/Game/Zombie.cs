@@ -77,4 +77,13 @@ public class Zombie : MonoBehaviour {
 		var edge = curCell.GetEdge(curDirection) as MazePassage;
 		decidedDirection = edge != null;
 	}
+
+	void OnTriggerEnter2D(Collider2D other)
+	{
+		var dude = other.gameObject.GetComponent<Dude>();
+		if (dude != null)
+		{
+			GameCore.instance.RestartGame();
+		}
+	}
 }

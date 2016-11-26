@@ -170,6 +170,7 @@ MonoBehaviour:
   mode: 1
   ShiftCd: 7
   BigLight: {fileID: 1983357106}
+  dudeStartPoint: {fileID: 941526044}
   dude: {fileID: 50200993}
   m_shiftCdTime: 0
   zPrefab: {fileID: 114000010862479966, guid: db297f5b041879b4db1df544e95b2a26, type: 2}
@@ -237,6 +238,34 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7730f3f2a8d9b354ab9b651f371eb1ba, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &941526043
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 941526044}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &941526044
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 941526043}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.12, y: -7.9, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
 --- !u!1 &1109867923
 GameObject:
   m_ObjectHideFlags: 0
