@@ -93,6 +93,11 @@ MonoBehaviour:
   - spriteFolder: test1
   - spriteFolder: bathroom
   - spriteFolder: bathroom-evil
+  startCellCoords:
+    x: 14
+    y: 0
+  startRoomSetings: 2
+  entryDirection: 0
   doorProbability: 0.1
 --- !u!114 &114000012723824966
 MonoBehaviour:
