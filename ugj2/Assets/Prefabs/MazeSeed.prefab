@@ -113,4 +113,4 @@ MonoBehaviour:
     type: 2}
   wallPrefab: {fileID: 114000011215723196, guid: a3b51ea513a7c8040ad8e0851802c157,
     type: 2}
-  HiddenPool: {x: 0, y: 0, z: -100}
+  HiddenPool: {x: 100, y: 100, z: -100}

@@ -21,6 +21,9 @@ public class GameCore : MonoBehaviour {
 	Transform dudeStartPoint;
 
 	[SerializeField]
+	Water water;
+
+	[SerializeField]
 	Dude dude;
 
 	public Dude Player { get { return dude; } }
@@ -70,14 +73,22 @@ public class GameCore : MonoBehaviour {
 				mazeInstance.ShiftMaze();
 			}
 		}
+
+		if (water.coords.x == Player.coordinates.x && water.coords.y == Player.coordinates.y)
+		{
+			RestartGame();
+        }
 	}
 
 	private void BeginGame()
-	{	
+	{   
 		mazeInstance = Instantiate(mazePrefab) as Maze;
 		mazeInstance.Init(mode);
+
+		water.coords = new IntVector2(Random.Range(0, MazeCoords.MazeSize.x ), Random.Range(9, MazeCoords.MazeSize.y));
+		water.transform.position = MazeCoords.CellToWorldCoords(water.coords);
 		//StartCoroutine(mazeInstance.Generate());
-        mazeInstance.Generate();
+		mazeInstance.Generate();
 		dude.gameObject.transform.position = dudeStartPoint.position;
 	}	
 	
