@@ -37,6 +37,7 @@ GameObject:
   - 4: {fileID: 4000010716209664}
   - 114: {fileID: 114000012240515478}
   m_Layer: 0
+  m_Name: MazeSeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
