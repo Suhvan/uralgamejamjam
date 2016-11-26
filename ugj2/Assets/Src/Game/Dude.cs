@@ -13,6 +13,8 @@ class Dude : MonoBehaviour
 
 	private MazeLighter lighter;
 
+	public IntVector2 curCell;
+
 	void Awake()
 	{
 		body = GetComponent<Rigidbody2D>();

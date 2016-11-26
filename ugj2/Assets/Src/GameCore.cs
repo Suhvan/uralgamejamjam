@@ -15,7 +15,13 @@ public class GameCore : MonoBehaviour {
 	GameObject BigLight;
 
 	[SerializeField]
+	Dude dude;
+
+	[SerializeField]
 	private float m_shiftCdTime = 0;
+
+	[SerializeField]
+	Zombie zPrefab;
 
 	private void Start()
 	{
@@ -33,6 +39,11 @@ public class GameCore : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Tab))
 		{
 			BigLight.SetActive(!BigLight.activeSelf);
+		}
+
+		if (Input.GetKeyDown(KeyCode.Z))
+		{
+			Instantiate(zPrefab);
 		}
 
 		if (mazeInstance!=null && mazeInstance.Ready)
@@ -53,6 +64,7 @@ public class GameCore : MonoBehaviour {
 		mazeInstance.Init(mode);
 		//StartCoroutine(mazeInstance.Generate());
 		mazeInstance.Generate();
+		dude.gameObject.transform.position = MazeCoords.CellToWorldCoords(MazeCoords.RandomCoords);
 	}	
 	
 

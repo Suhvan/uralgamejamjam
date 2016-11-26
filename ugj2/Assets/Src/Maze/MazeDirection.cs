@@ -57,6 +57,22 @@ public static class MazeDirections
 		return vectors[(int)direction];
 	}
 
+	public static Vector2 ToVector(this MazeDirection direction)
+	{
+		switch (direction)
+		{
+			case MazeDirection.DOWN:
+				return Vector2.down;
+			case MazeDirection.LEFT:
+				return Vector2.left;
+			case MazeDirection.RIGHT:
+				return Vector2.right;
+			case MazeDirection.UP:
+				return Vector2.up;
+		}
+		return Vector2.zero;
+	}
+
 	public static MazeDirection GetOpposite(this MazeDirection direction)
 	{
 		return opposites[(int)direction];

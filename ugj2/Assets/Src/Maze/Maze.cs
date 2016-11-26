@@ -25,14 +25,6 @@ public class Maze : MonoBehaviour {
 	[Range(0f, 1f)]
 	public float doorProbability;
 
-	public IntVector2 StartCoords
-	{
-		get
-		{
-			return new IntVector2(Random.Range(0, size.x), Random.Range(0, size.y));
-		}
-	}
-
 	private MazeRoom CreateRoom(int indexToExclude)
 	{	
 		var settingsIndex = Random.Range(0, roomSettings.Length);
@@ -65,6 +57,9 @@ public class Maze : MonoBehaviour {
 		//StartCoroutine(Generate());
 		Generate();
     }
+
+	
+		 
 
 	public void MakeComponents(List<MazeCell> litCells)
 	{
@@ -138,6 +133,9 @@ public class Maze : MonoBehaviour {
 		Ready = false;
 		this.mode = mode;
 
+		MazeCoords.CellSize = cellSize;
+		MazeCoords.MazeSize = size;
+
 		cellPool = new MazeCell[size.x, size.y];
 
 		mazePool.PreparePool( size);
@@ -154,7 +152,7 @@ public class Maze : MonoBehaviour {
 				CreateCell(new IntVector2(x, y));
             }
 		}
-		var newCell = GetCellFromPool(StartCoords);
+		var newCell = GetCellFromPool(MazeCoords.RandomCoords);
 		newCell.Initialize(CreateRoom(-1), m_compIdCount++);
 		activeCells.Add(newCell);
 	}
@@ -200,7 +198,7 @@ public class Maze : MonoBehaviour {
 		IntVector2 coordinates = currentCell.coordinates + direction.ToIntVector2();
 		MazeCell neighbor = GetCell(coordinates);
 
-		if (!ContainsCoordinates(coordinates))
+		if (!MazeCoords.ContainsCoordinates(coordinates))
 		{
 			CreateWall(currentCell, GetCell(coordinates), direction);
 			return;
@@ -262,19 +260,14 @@ public class Maze : MonoBehaviour {
 
 	public MazeCell GetCell(IntVector2 coordinates)
 	{
-		if (!ContainsCoordinates(coordinates) || cellPool[coordinates.x, coordinates.y].gameObject.activeSelf == false)
+		if (!MazeCoords.ContainsCoordinates(coordinates) || cellPool[coordinates.x, coordinates.y].gameObject.activeSelf == false)
 			return null;		
 		return cellPool[coordinates.x, coordinates.y];
 	}
 
-	public bool ContainsCoordinates(IntVector2 coordinate)
-	{
-		return coordinate.x >= 0 && coordinate.x < size.x && coordinate.y >= 0 && coordinate.y < size.y;
-	}
-
 	private MazeCell GetCellFromPool(IntVector2 coordinates)
 	{
-		if (!ContainsCoordinates(coordinates))
+		if (!MazeCoords.ContainsCoordinates(coordinates))
 			return null;
 		cellPool[coordinates.x, coordinates.y].gameObject.SetActive(true);
         return cellPool[coordinates.x, coordinates.y];
@@ -288,7 +281,7 @@ public class Maze : MonoBehaviour {
 		newCell.coordinates = coordinates;
 		newCell.name = "Maze Cell " + coordinates.x + ", " + coordinates.y;
 		newCell.transform.parent = transform;
-		newCell.transform.localPosition = new Vector2((coordinates.x - size.x / 2) * cellSize, (coordinates.y - size.y / 2) * cellSize);
+		newCell.transform.localPosition = MazeCoords.CellToWorldCoords(coordinates);
 		newCell.gameObject.SetActive(false);
 		return newCell;
 	}
