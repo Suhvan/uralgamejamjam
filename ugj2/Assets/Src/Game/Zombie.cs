@@ -26,7 +26,7 @@ public class Zombie : MonoBehaviour {
 	void Start()
 	{
 		gameObject.transform.position = MazeCoords.CellToWorldCoords(MazeCoords.RandomCoords);
-	}
+    }
 
 
 	void Update() {

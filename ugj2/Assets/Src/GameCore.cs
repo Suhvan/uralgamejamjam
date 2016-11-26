@@ -25,6 +25,8 @@ public class GameCore : MonoBehaviour {
 
 	private void Start()
 	{
+		Destroy( FindObjectOfType<Maze>().gameObject);
+		Application.targetFrameRate = 30;
 		BeginGame();
 		m_shiftCdTime = ShiftCd;
     }
@@ -64,7 +66,7 @@ public class GameCore : MonoBehaviour {
 		mazeInstance.Init(mode);
 		//StartCoroutine(mazeInstance.Generate());
 		mazeInstance.Generate();
-		dude.gameObject.transform.position = MazeCoords.CellToWorldCoords(MazeCoords.RandomCoords);
+		//dude.gameObject.transform.position = MazeCoords.CellToWorldCoords(MazeCoords.RandomCoords);
 	}	
 	
 
