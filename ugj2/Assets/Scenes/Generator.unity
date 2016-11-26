@@ -179,7 +179,7 @@ MonoBehaviour:
   mazePrefab: {fileID: 114000012240515478, guid: bfe58707ce1f8974095d70a0f767bf73,
     type: 2}
   mode: 1
-  ShiftCd: 7
+  ShiftCd: 3
   BigLight: {fileID: 1983357106}
   dudeStartPoint: {fileID: 941526044}
   dude: {fileID: 50200993}
