@@ -55,9 +55,9 @@ public class GameCore : MonoBehaviour {
 
 		if (mazeInstance!=null && mazeInstance.Ready)
 		{
-			//m_shiftCdTime -= Time.deltaTime;
+			m_shiftCdTime -= Time.deltaTime;
 			if (m_shiftCdTime < 0)
-			if (Input.GetKeyDown(KeyCode.Space))
+			//if (Input.GetKeyDown(KeyCode.Space))
 			{
 				m_shiftCdTime = ShiftCd;
 				mazeInstance.ShiftMaze();
