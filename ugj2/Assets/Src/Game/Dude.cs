@@ -41,6 +41,7 @@ class Dude : MonoBehaviour
 
 		lighter.transform.rotation = Quaternion.Euler(0,0, angle - 90);
 
+		curCell = MazeCoords.WorldToCellCoords(transform.position);
 		/*if (Input.GetKeyDown(KeyCode.Space))
 		{
 			lighter = Instantiate(LighterPrefab);
