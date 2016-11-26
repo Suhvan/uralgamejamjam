@@ -6,6 +6,8 @@ public class MazePassage : MazeCellEdge
 {
 	public bool DoorPassage { get; set; }
 
+	public bool isEntry { get; set; }
+
 	[SerializeField]
 	private SpriteRenderer passSprite;
 

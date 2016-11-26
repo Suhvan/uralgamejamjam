@@ -17,6 +17,13 @@ public class MazeCell : MonoBehaviour {
 		SR.sprite = room.Settings.GetRandomSprite( SpriteType.Cell);
     }
 
+	public void MakeEntry(MazeDirection direction)
+	{
+		MazePassage entry = GameCore.mazeInstance.mazePool.GetPassage();
+		entry.isEntry = true;
+        entry.Initialize(this, null, direction);
+	}
+
 	private MazeCellEdge[] edges = new MazeCellEdge[MazeDirections.Count];
 
 	public MazeCellEdge GetEdge(MazeDirection direction)
@@ -138,7 +145,8 @@ public class MazeCell : MonoBehaviour {
 			for (int i = 0; i < MazeDirections.Count; i++)
 			{
 				int index = (skips + i) % MazeDirections.Count;
-                if (edges[index] != null && edges[index] is MazePassage)
+				var pass = edges[index] as MazePassage;
+                if (pass != null && !pass.isEntry)
 				{
 					return (MazeDirection)index;
 				}

@@ -22,6 +22,13 @@ public class Maze : MonoBehaviour {
 
 	private int m_compIdCount = 0;
 
+	[SerializeField]
+	private IntVector2 startCellCoords;
+	[SerializeField]
+	private int startRoomSetings;
+	[SerializeField]
+	private MazeDirection entryDirection;
+
 	[Range(0f, 1f)]
 	public float doorProbability;
 
@@ -57,8 +64,6 @@ public class Maze : MonoBehaviour {
 		//StartCoroutine(Generate());
 		Generate();
     }
-
-	
 		 
 
 	public void MakeComponents(List<MazeCell> litCells)
@@ -152,8 +157,10 @@ public class Maze : MonoBehaviour {
 				CreateCell(new IntVector2(x, y));
             }
 		}
-		var newCell = GetCellFromPool(MazeCoords.RandomCoords);
-		newCell.Initialize(CreateRoom(-1), m_compIdCount++);
+		var newCell = GetCellFromPool(startCellCoords);
+		MazeRoom startRoom = new MazeRoom(rooms.Count, startRoomSetings);
+		rooms.Add(startRoom);
+		newCell.Initialize(startRoom, m_compIdCount++);		
 		activeCells.Add(newCell);
 	}
 
@@ -200,7 +207,14 @@ public class Maze : MonoBehaviour {
 
 		if (!MazeCoords.ContainsCoordinates(coordinates))
 		{
-			CreateWall(currentCell, GetCell(coordinates), direction);
+			if (currentCell.coordinates.x == startCellCoords.x && currentCell.coordinates.y == startCellCoords.y)
+			{
+				currentCell.MakeEntry(direction);
+            }
+			else
+			{
+				CreateWall(currentCell, null, direction);
+			}
 			return;
 		}
 
@@ -243,7 +257,9 @@ public class Maze : MonoBehaviour {
 			}
 		}
 		passage.Initialize(cell, otherCell, direction);
+		passage.isEntry = false;
 		passage = mazePool.GetPassage();
+		passage.isEntry = false;
 		passage.Initialize(otherCell, cell, direction.GetOpposite());
 	}
 
