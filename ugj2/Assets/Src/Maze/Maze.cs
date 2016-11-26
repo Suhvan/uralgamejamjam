@@ -24,9 +24,7 @@ public class Maze : MonoBehaviour {
 
 	[SerializeField]
 	private IntVector2 startCellCoords;
-
-	[SerializeField]
-	private int startRoomSetings;
+	
 	[SerializeField]
 	private MazeDirection entryDirection;
 
@@ -159,9 +157,7 @@ public class Maze : MonoBehaviour {
             }
 		}
 		var newCell = GetCellFromPool(startCellCoords);
-		MazeRoom startRoom = new MazeRoom(rooms.Count, startRoomSetings);
-		rooms.Add(startRoom);
-		newCell.Initialize(startRoom, m_compIdCount++);		
+		newCell.Initialize(CreateRoom(-1), m_compIdCount++);		
 		activeCells.Add(newCell);
 	}
 
