@@ -56,7 +56,7 @@ GameObject:
   - 58: {fileID: 58000014038628892}
   - 114: {fileID: 114000013220961682}
   m_Layer: 0
-  m_Name: agroFiled
+  m_Name: agroFieled
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -416,7 +416,7 @@ Light:
   serializedVersion: 7
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2.97
+  m_Intensity: 3
   m_Range: 2.1
   m_SpotAngle: 75
   m_CookieSize: 10
@@ -435,9 +435,9 @@ Light:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_Lightmapping: 2
+  m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_BounceIntensity: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!108 &108000013320506056

@@ -91,9 +91,10 @@ public class Zombie : MonoBehaviour {
 						}
 						else
 							curDirection = MazeDirection.LEFT;
-					}
+					}				
 					else
 					{
+
 						if (coords.y > curCell.coordinates.y)
 						{
 							curDirection = MazeDirection.UP;
@@ -179,16 +180,23 @@ public class Zombie : MonoBehaviour {
 		while (srchNodes.Count != pathLength-1)
 		{
 			srchNodes.Add(targetNode);
-			
+			var cell = CurMaze.GetCell(targetNode.realCoord);
+
 			for (int i = 0; i < MazeDirections.Count; i++)
 			{
 				dir = (MazeDirection)i;
 				var fCoords = targetNode.fakeCoord + dir.ToIntVector2();
 				if (fCoords.x < mapLngth && fCoords.y < mapLngth && searchMap[fCoords.x, fCoords.y] != null && searchMap[fCoords.x, fCoords.y].searchIndx == targetNode.searchIndx - 1)
 				{
-					targetNode = searchMap[fCoords.x, fCoords.y];
-					break;
-                }
+					
+					var pass = cell.GetEdge(dir) as MazePassage;
+					if (GoodPass(pass))
+					{
+						targetNode = searchMap[fCoords.x, fCoords.y];
+						break;
+					}
+					
+                }				
 			}
 		}
 		return srchNodes;

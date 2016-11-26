@@ -453,11 +453,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
---- !u!4 &1185410824 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4000011456802300, guid: b2e848989b8e8ac42a971a399d44de26,
-    type: 2}
-  m_PrefabInternal: {fileID: 2021450599}
 --- !u!1001 &1416026835
 Prefab:
   m_ObjectHideFlags: 0
@@ -740,54 +735,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114000013868153426, guid: b2e848989b8e8ac42a971a399d44de26,
-        type: 2}
-      propertyPath: maxSpeed
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 108000012875756610, guid: b2e848989b8e8ac42a971a399d44de26,
-        type: 2}
-      propertyPath: m_BounceIntensity
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 108000012875756610, guid: b2e848989b8e8ac42a971a399d44de26,
-        type: 2}
-      propertyPath: m_Lightmapping
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 108000012875756610, guid: b2e848989b8e8ac42a971a399d44de26,
-        type: 2}
-      propertyPath: m_Intensity
-      value: 3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b2e848989b8e8ac42a971a399d44de26, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &2057962015
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 2057962016}
-  m_Layer: 0
-  m_Name: agroFiled
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2057962016
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2057962015}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
-  m_Father: {fileID: 1185410824}
-  m_RootOrder: 4
