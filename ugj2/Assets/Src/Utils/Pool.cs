@@ -2,49 +2,64 @@
 using System.Collections.Generic;
 
 public class Pool : MonoBehaviour
-{	
-	List<MazeWall> wallPool = new List<MazeWall>();
-	List<MazePassage> passPool = new List<MazePassage>();
+{
+	Stack<MazeWall>[] wallPools = new Stack<MazeWall>[4];
+	Stack<MazePassage> passPool = new Stack<MazePassage>();
 	
 	public MazePassage passagePrefab;
 	public MazeWall wallPrefab;
 
-	private MazeWall CreateWall()
+	private MazeWall CreateWall(MazeDirection direction)
 	{
-		MazeWall wall = Instantiate(wallPrefab) as MazeWall;		
-        return wall;
+		MazeWall wall = Instantiate(wallPrefab) as MazeWall;
+		wall.transform.localRotation = direction.ToRotation();
+		wall.gameObject.transform.SetParent(this.transform);
+		return wall;
 	}
 
 	private MazePassage CreatePassage()
 	{
 		MazePassage pass = Instantiate(passagePrefab) as MazePassage;
+		pass.gameObject.transform.SetParent(this.transform);
 		return pass;
-	}
-
-	private void ApplyToPool(MazeCellEdge edge)
-	{
-		edge.gameObject.SetActive(false);
-		edge.gameObject.transform.SetParent(this.transform);
 	}
 
 	public void PreparePool(IntVector2 mazeSize)
 	{
-		
+		for (int i = 0; i < MazeDirections.Count; i++)
+		{
+			wallPools[i] = new Stack<MazeWall>();
+        }
 	}
 
+	[SerializeField]
+	private Vector3 HiddenPool;
+
+	public void HidePoolObjects()
+	{
+		foreach (var wallPool in wallPools)
+		foreach (var wall in wallPool)
+		{
+			wall.gameObject.transform.position = HiddenPool;
+		}
+
+		foreach (var pass in passPool)
+		{
+			pass.gameObject.transform.position = HiddenPool;
+		}
+	}
 	
 
-	public MazeWall GetWall()
-	{
+	public MazeWall GetWall(MazeDirection direction)
+	{		
 		MazeWall wall = null;
-		if (wallPool.Count == 0)
-			wall = CreateWall();
+		if (wallPools[(int)direction].Count == 0)
+			wall = CreateWall(direction);
 		else
 		{			
-			wall = wallPool[0];
-			wallPool.RemoveAt(0);
+			wall = wallPools[(int)direction].Pop();
 		}
-		wall.gameObject.SetActive(true);
+		
 		
 		return wall;
 	}
@@ -56,24 +71,21 @@ public class Pool : MonoBehaviour
 			pass = CreatePassage();
 		else
 		{
-			pass = passPool[0];
-			passPool.RemoveAt(0);
+			pass = passPool.Pop();
 		}
-		pass.gameObject.SetActive(true);
 
 		return pass;
 	}
 
-	public void ReturnObject(MazeCellEdge edge)
-	{	
-		ApplyToPool(edge);
+	public void ReturnObject(MazeCellEdge edge, MazeDirection dir)
+	{
 		if (edge is MazeWall)
 		{
-			wallPool.Add(edge as MazeWall);
+			wallPools[(int)dir].Push(edge as MazeWall);
         }
 		if (edge is MazePassage)
 		{
-			passPool.Add(edge as MazePassage);
+			passPool.Push(edge as MazePassage);
 		}
     }
 	

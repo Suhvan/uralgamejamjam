@@ -8,9 +8,6 @@ public class MazePassage : MazeCellEdge
 
 	public bool isEntry { get; set; }
 
-	[SerializeField]
-	private SpriteRenderer passSprite;
-
 	public bool SameComponents
 	{
         get
@@ -21,9 +18,8 @@ public class MazePassage : MazeCellEdge
 		}
 	}
 
-
 	public override void EnableRoomSettings()
 	{
-		passSprite.sprite = cell.room.Settings.GetRandomSprite(SpriteType.Pass);
+	
 	}
 }

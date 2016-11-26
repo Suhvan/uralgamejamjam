@@ -71,6 +71,8 @@ MonoBehaviour:
     x: 0
     y: 0
   Component: -1
+  Amazed: 0
+  sprite: {fileID: 212000011054964534}
   m_litSrc: 0
 --- !u!212 &212000011054964534
 SpriteRenderer:

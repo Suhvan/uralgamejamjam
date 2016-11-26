@@ -10,11 +10,13 @@ public class MazeCell : MonoBehaviour {
 
 	public int Component = -1;
 
+	public bool Amazed;
+
 	public void Initialize(MazeRoom room, int component)
 	{
 		Component = component;
         this.room = room;
-		SR.sprite = room.Settings.GetRandomSprite( SpriteType.Cell);
+		sprite.sprite = room.Settings.GetRandomSprite( SpriteType.Cell);
     }
 
 	public void MakeEntry(MazeDirection direction)
@@ -41,18 +43,9 @@ public class MazeCell : MonoBehaviour {
 		}
 	}
 
-	private SpriteRenderer m_sr;
-	private SpriteRenderer SR
-	{
-		get
-		{
-			if (m_sr == null)
-			{
-				m_sr = GetComponent<SpriteRenderer>();
-			}
-			return m_sr;
-		}
-	}
+	[SerializeField]
+	private SpriteRenderer sprite;
+
 
 	[SerializeField]
 	private int m_litSrc;
@@ -76,11 +69,11 @@ public class MazeCell : MonoBehaviour {
 
 			if (Lit)
 			{
-				//SR.color = Color.green;
+				//sprite.color = Color.green;
 			}
 			else
 			{
-				//SR.color = Color.white;
+				//sprite.color = Color.white;
 			}
 
 		}
@@ -98,7 +91,7 @@ public class MazeCell : MonoBehaviour {
 		{
 			if (edges[i].otherCell == null || !edges[i].otherCell.Lit)
 			{	
-				GameCore.mazeInstance.mazePool.ReturnObject(edges[i]);
+				GameCore.mazeInstance.mazePool.ReturnObject(edges[i],(MazeDirection)i);
 				edges[i] = null;
                 initializedEdgeCount--;
             }
@@ -109,7 +102,7 @@ public class MazeCell : MonoBehaviour {
 	{
 		for (int i = 0; i < MazeDirections.Count; i++)
 		{	
-			GameCore.mazeInstance.mazePool.ReturnObject(edges[i]);
+			GameCore.mazeInstance.mazePool.ReturnObject(edges[i], (MazeDirection)i);
 			edges[i] = null;
 			initializedEdgeCount--;
 		}

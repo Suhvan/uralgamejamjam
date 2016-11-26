@@ -39,7 +39,6 @@ public class GameCore : MonoBehaviour {
 	{
 		instance = this;
 		Destroy( FindObjectOfType<Maze>().gameObject);
-		Application.targetFrameRate = 30;
 		BeginGame();
 		m_shiftCdTime = ShiftCd;
     }

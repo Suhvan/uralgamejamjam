@@ -38,7 +38,7 @@ GameObject:
   - 4: {fileID: 4000010490982464}
   - 212: {fileID: 212000011188607712}
   - 60: {fileID: 60000010533352284}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cell: {fileID: 0}
   otherCell: {fileID: 0}
-  direction: 0
+  direction: 1
   wallSprite: {fileID: 212000011188607712}
 --- !u!212 &212000011188607712
 SpriteRenderer:

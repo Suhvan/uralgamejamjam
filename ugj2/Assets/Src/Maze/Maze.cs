@@ -108,7 +108,7 @@ public class Maze : MonoBehaviour {
 				{
 					//Destroy(cellPool[x, y].gameObject);
 					cellPool[x, y].ClearEdges();
-                    cellPool[x, y].gameObject.SetActive(false);
+                    cellPool[x, y].Amazed = false;
                 }
 				else
 				{
@@ -130,6 +130,7 @@ public class Maze : MonoBehaviour {
 			DoGenerationStep();
         }
 		Ready = true;
+		mazePool.HidePoolObjects();
     }
 
 	public void Init(GenerationMode mode)
@@ -262,18 +263,18 @@ public class Maze : MonoBehaviour {
 
 	private void CreateWall(MazeCell cell, MazeCell otherCell, MazeDirection direction)
 	{
-		MazeWall wall = mazePool.GetWall();
+		MazeWall wall = mazePool.GetWall(direction);
         wall.Initialize(cell, otherCell, direction);
 		if (otherCell != null)
 		{
-			wall = mazePool.GetWall();
+			wall = mazePool.GetWall(direction.GetOpposite());
 			wall.Initialize(otherCell, cell, direction.GetOpposite());
 		}
 	}
 
 	public MazeCell GetCell(IntVector2 coordinates)
 	{
-		if (!MazeCoords.ContainsCoordinates(coordinates) || cellPool[coordinates.x, coordinates.y].gameObject.activeSelf == false)
+		if (!MazeCoords.ContainsCoordinates(coordinates) || cellPool[coordinates.x, coordinates.y].Amazed == false)
 			return null;		
 		return cellPool[coordinates.x, coordinates.y];
 	}
@@ -282,7 +283,7 @@ public class Maze : MonoBehaviour {
 	{
 		if (!MazeCoords.ContainsCoordinates(coordinates))
 			return null;
-		cellPool[coordinates.x, coordinates.y].gameObject.SetActive(true);
+		cellPool[coordinates.x, coordinates.y].Amazed = true;
         return cellPool[coordinates.x, coordinates.y];
 		
 	}
@@ -295,7 +296,7 @@ public class Maze : MonoBehaviour {
 		newCell.name = "Maze Cell " + coordinates.x + ", " + coordinates.y;
 		newCell.transform.parent = transform;
 		newCell.transform.localPosition = MazeCoords.CellToWorldCoords(coordinates);
-		newCell.gameObject.SetActive(false);
+		newCell.Amazed = false;
 		return newCell;
 	}
 }

@@ -7,16 +7,13 @@ public abstract class MazeCellEdge : MonoBehaviour
 
 	public MazeDirection direction;
 
-	public void Initialize(MazeCell cell, MazeCell otherCell, MazeDirection direction)
+	public virtual void Initialize(MazeCell cell, MazeCell otherCell, MazeDirection direction)
 	{
 		this.cell = cell;
 		this.otherCell = otherCell;
 		this.direction = direction;
 		cell.SetEdge(direction, this);
-		transform.parent = cell.transform ;
-		transform.localPosition = Vector3.zero;
-		transform.localRotation = direction.ToRotation();
-		transform.position = new Vector3(transform.position.x, transform.position.y, 0.01f * (1 + (int)direction) + (float)(cell.coordinates.x + cell.coordinates.y) * 0.00001f);
+		//transform.parent = cell.transform ;
 	}
 
 	public abstract void EnableRoomSettings();

@@ -96,7 +96,6 @@ MonoBehaviour:
   startCellCoords:
     x: 14
     y: 0
-  startRoomSetings: 2
   entryDirection: 0
   doorProbability: 0.1
 --- !u!114 &114000012723824966
@@ -114,3 +113,4 @@ MonoBehaviour:
     type: 2}
   wallPrefab: {fileID: 114000011215723196, guid: a3b51ea513a7c8040ad8e0851802c157,
     type: 2}
+  HiddenPool: {x: 0, y: 0, z: -100}
