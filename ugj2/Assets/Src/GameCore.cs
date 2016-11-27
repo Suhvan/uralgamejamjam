@@ -10,6 +10,8 @@ public class GameCore : MonoBehaviour {
 
 	public static Maze mazeInstance;
 
+	public DialogsCore dialogSystem;
+
 	public static GameCore instance { private set; get; }
 
 	public int ShiftCd = 30;
@@ -111,6 +113,8 @@ public class GameCore : MonoBehaviour {
 		//StartCoroutine(mazeInstance.Generate());
 		mazeInstance.Generate();
 		dude.gameObject.transform.position = dudeStartPoint.position;
+
+		dialogSystem.OnGameStart();
 
 		for (int i = 0; i < lightersLimit; i++)
 		{
