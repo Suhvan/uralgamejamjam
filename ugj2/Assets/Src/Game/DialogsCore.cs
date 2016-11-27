@@ -79,9 +79,10 @@ public class DialogsCore : MonoBehaviour {
 
 	public void DropIndexes()
 	{
-		femaleCallIndex = 0;
+		//femaleCallIndex = 0;
 		femaleCallTimer = femaleCallCD;
-    }
+		maleCallTimer = femaleCallCD;
+	}
 		 
 
 	public void OnGameStart()

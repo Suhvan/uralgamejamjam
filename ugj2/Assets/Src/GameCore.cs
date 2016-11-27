@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class GameCore : MonoBehaviour {
 
@@ -58,25 +59,36 @@ public class GameCore : MonoBehaviour {
 	[SerializeField]
 	private int lightersLimit;
 
+	[SerializeField]
+	Image foreground;
+
 	public Sprite[] ZombieEyeSprites;
 
 	private List<Zombie> zombies = new List<Zombie>();
 
 	public bool PikedUpWater { get	{ return water == null; } }
 
+	public Texture2D cursorTexture;
+
+	[SerializeField]
+	private AudioClip deathSound;
+
+
 	private void Start()
 	{
+		//Cursor.SetCursor(cursorTexture, Vector3.zero, CursorMode.Auto);
 		GameOver = true;
 		instance = this;
 		Destroy( FindObjectOfType<Maze>().gameObject);
-		BeginGame();
+		StartCoroutine(BeginGame());
 		m_shiftCdTime = ShiftCd;
 		m_zombieCdTime = ZombieSpawnCd;
     }
 
+
 	private void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.R))
+		/*if (Input.GetKeyDown(KeyCode.R))
 		{
 			RestartGame();
 		}
@@ -84,7 +96,7 @@ public class GameCore : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Tab))
 		{
 			BigLight.SetActive(!BigLight.activeSelf);
-		}
+		}*/
 
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
@@ -127,8 +139,11 @@ public class GameCore : MonoBehaviour {
 		deamon.transform.position = Player.transform.position;
 	}
 
-	private void BeginGame()
-	{   
+	[SerializeField]
+	private float FadeTime = 0.5f;
+
+	private IEnumerator BeginGame()
+	{	
 		mazeInstance = Instantiate(mazePrefab) as Maze;
 		mazeInstance.Init(mode);
 		
@@ -150,7 +165,11 @@ public class GameCore : MonoBehaviour {
 			l.transform.parent = mazeInstance.gameObject.transform;
 			l.transform.position = MazeCoords.CellToWorldCoords(MazeCoords.RandomCoords);
 		}
-		
+		yield return null;
+
+		foreground.CrossFadeAlpha(0f, FadeTime, false);
+		yield return new WaitForSeconds(FadeTime);
+
 	}
 
 	private void CleanDialog()
@@ -172,9 +191,18 @@ public class GameCore : MonoBehaviour {
 		dialogSystem.OnGameEnd();
 	}
 
-	public void RestartGame()
+	public IEnumerator RestartGame(bool byDeath)
 	{
-		
+		if (GameOver)
+			yield break;
+		GameOver = true;
+		if (byDeath)
+		{	
+            AudioSource.PlayClipAtPoint(deathSound, Player.transform.position);
+		}
+		foreground.CrossFadeAlpha(1f, FadeTime, false);
+		yield return new WaitForSeconds(Mathf.Max(FadeTime, deathSound.length));
+
 		foreach (var z in zombies)
 		{
 			Destroy(z.gameObject);
@@ -192,6 +220,6 @@ public class GameCore : MonoBehaviour {
 
 		StopAllCoroutines();
 		Destroy(mazeInstance.gameObject);		
-		BeginGame();
+		StartCoroutine( BeginGame());
 	}
 }

@@ -233,7 +233,7 @@ public class Zombie : MonoBehaviour {
 		var dude = other.gameObject.GetComponent<Dude>();
 		if (dude != null)
 		{
-			GameCore.instance.RestartGame();
+			GameCore.instance.StartCoroutine( GameCore.instance.RestartGame(true));
 		}
 	}
 }
