@@ -133,7 +133,7 @@ public class GameCore : MonoBehaviour {
 		mazeInstance.Init(mode);
 		
 		water = Instantiate(waterPrefab);
-		water.coords = new IntVector2(Random.Range(0, MazeCoords.MazeSize.x ), Random.Range(9, MazeCoords.MazeSize.y));
+		water.coords = new IntVector2(Random.Range(1, MazeCoords.MazeSize.x-1 ), 16);
 
 		water.transform.position = MazeCoords.CellToWorldCoords(water.coords);
 

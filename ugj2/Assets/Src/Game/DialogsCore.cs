@@ -47,6 +47,8 @@ public class DialogsCore : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (GameCore.instance.GameOver)
+			return;
 		if (!GameCore.instance.PikedUpWater)
 		{
 			femaleCallTimer -= Time.deltaTime;
@@ -63,7 +65,7 @@ public class DialogsCore : MonoBehaviour {
 				femaleCallTimer = femaleCallCD;
 			}
 		}
-		else
+		else 
 		{
 			maleCallTimer -= Time.deltaTime;
 			if (maleCallTimer < 0)
