@@ -55,3 +55,16 @@ MonoBehaviour:
   StartDialog:
   - female-1
   - male-1
+  femaleCall:
+  - female-2
+  - female-3
+  femaleCallEvil:
+  - female-evil-4
+  - female-evil-5
+  - female-evil-6
+  - female-evil-7
+  - female-evil-8
+  maleFrustration: []
+  demonDialog: []
+  femaleCallCD: 30
+  femaleCallTimer: 0

@@ -135,6 +135,12 @@ public class GameCore : MonoBehaviour {
 		}
 		zombies.Clear();
 
+		foreach (var d in GetComponents<DialogLine>())
+		{
+			Destroy(d.gameObject);
+		}
+		dialogSystem.DropIndexes();
+
 		StopAllCoroutines();
 		Destroy(mazeInstance.gameObject);
 		BeginGame();

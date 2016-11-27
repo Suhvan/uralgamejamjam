@@ -55,6 +55,7 @@ public class DialogsCore : MonoBehaviour {
 	public void DropIndexes()
 	{
 		femaleCallIndex = 0;
+		femaleCallTimer = femaleCallCD;
     }
 		 
 
