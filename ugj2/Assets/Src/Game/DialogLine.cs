@@ -8,7 +8,7 @@ public class DialogLine : MonoBehaviour {
 	Text text;
 
 	[SerializeField]
-	AudioClip audioClip;
+	AudioSource audioSource;
 
 	private string dialogCode;
 
@@ -17,16 +17,18 @@ public class DialogLine : MonoBehaviour {
 	public void Init(string code, Queue<string> dialogQueue)
 	{
 		dialogCode = code;
-		audioClip = GameCore.instance.dialogSystem.GetClip(dialogCode);
+		audioSource.clip = GameCore.instance.dialogSystem.GetClip(dialogCode);        
 		text.text = GameCore.instance.dialogSystem.GetText(dialogCode);
 		DialogQueue = dialogQueue;
+		transform.parent = Camera.main.transform;
     }
 
 	// Use this for initialization
-	void Start () {
-		AudioSource.PlayClipAtPoint(audioClip, Camera.main.transform.position);
-		StartCoroutine(DestryIn(audioClip.length));
-    }
+	void Start()
+	{
+		audioSource.Play();
+		StartCoroutine(DestryIn(audioSource.clip.length));
+	}
 
 	
 

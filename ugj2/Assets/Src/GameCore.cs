@@ -122,8 +122,6 @@ public class GameCore : MonoBehaviour {
 			l.transform.parent = mazeInstance.gameObject.transform;
 			l.transform.position = MazeCoords.CellToWorldCoords(MazeCoords.RandomCoords);
 		}
-
-
 	}	
 	
 
@@ -135,7 +133,7 @@ public class GameCore : MonoBehaviour {
 		}
 		zombies.Clear();
 
-		foreach (var d in GetComponents<DialogLine>())
+		foreach (var d in FindObjectsOfType<DialogLine>())
 		{
 			Destroy(d.gameObject);
 		}
