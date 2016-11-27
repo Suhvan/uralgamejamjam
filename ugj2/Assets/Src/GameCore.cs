@@ -43,6 +43,12 @@ public class GameCore : MonoBehaviour {
 	[SerializeField]
 	Zombie zPrefab;
 
+	[SerializeField]
+	MazeLighter lPregab;
+
+	[SerializeField]
+	private int lightersLimit;
+
 	public Sprite[] ZombieEyeSprites;
 
 	private List<Zombie> zombies = new List<Zombie>();
@@ -105,6 +111,15 @@ public class GameCore : MonoBehaviour {
 		//StartCoroutine(mazeInstance.Generate());
 		mazeInstance.Generate();
 		dude.gameObject.transform.position = dudeStartPoint.position;
+
+		for (int i = 0; i < lightersLimit; i++)
+		{
+			var l = Instantiate(lPregab);
+			l.transform.parent = mazeInstance.gameObject.transform;
+			l.transform.position = MazeCoords.CellToWorldCoords(MazeCoords.RandomCoords);
+		}
+
+
 	}	
 	
 

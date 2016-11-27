@@ -184,6 +184,8 @@ MonoBehaviour:
   m_zombieCdTime: 0
   ZombieLimit: 5
   zPrefab: {fileID: 114000010862479966, guid: db297f5b041879b4db1df544e95b2a26, type: 2}
+  lPregab: {fileID: 114000013853013718, guid: 74fb8f515df6f97418207ebaad091440, type: 2}
+  lightersLimit: 4
   ZombieEyeSprites:
   - {fileID: 21300000, guid: daf179d1746b75144bc058fb3970cff9, type: 3}
   - {fileID: 21300000, guid: f3dde1b625dc6b14e933e63b79ce5273, type: 3}
