@@ -135,12 +135,14 @@ public class GameCore : MonoBehaviour {
         }
 	}
 
+	Demon deamon;
+
 	IEnumerator DemonSpawn()
 	{
 		yield return new WaitForSeconds(3);
 		CleanDialog();
 		dialogSystem.OnWaterPickUp();	
-		var deamon = Instantiate(DemonPrefab);
+		deamon = Instantiate(DemonPrefab);
 		deamon.transform.position = Player.transform.position;
 	}
 
@@ -205,7 +207,11 @@ public class GameCore : MonoBehaviour {
 		endGame.gameObject.SetActive(false);
 		if (mazeInstance == null || !mazeInstance.Ready)
 			yield break;
-		mazeInstance.Ready = false;
+
+		if (deamon != null)
+			Destroy(deamon.gameObject);
+
+        mazeInstance.Ready = false;
 		if (byDeath)
 		{	
             AudioSource.PlayClipAtPoint(deathSound, Player.transform.position);
