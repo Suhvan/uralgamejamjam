@@ -64,12 +64,19 @@ MonoBehaviour:
   - female-evil-6
   - female-evil-7
   - female-evil-8
-  maleFrustration: []
+  maleFrustration:
+  - male-4
+  - male-2
+  - male-3
   demonDialog:
   - female-evil-dialogue-1
   - male-dialogue-2
   - female-evil-dialogue-3
   - male-dialogue-4
   - male-dialogue-5
+  endDialog:
+  - female-final
   femaleCallCD: 30
   femaleCallTimer: 0
+  maleCallCD: 45
+  maleCallTimer: 0

@@ -66,6 +66,7 @@ public class GameCore : MonoBehaviour {
 
 	private void Start()
 	{
+		GameOver = true;
 		instance = this;
 		Destroy( FindObjectOfType<Maze>().gameObject);
 		BeginGame();
@@ -85,11 +86,15 @@ public class GameCore : MonoBehaviour {
 			BigLight.SetActive(!BigLight.activeSelf);
 		}
 
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			CleanDialog();
+		}
+
 		if (mazeInstance!=null && mazeInstance.Ready)
 		{
 			m_shiftCdTime -= Time.deltaTime;
 			if (m_shiftCdTime < 0)
-			//if (Input.GetKeyDown(KeyCode.Space))
 			{
 				m_shiftCdTime = ShiftCd;
 				mazeInstance.ShiftMaze();
@@ -109,22 +114,30 @@ public class GameCore : MonoBehaviour {
 		if (water != null && water.coords.x == Player.coordinates.x && water.coords.y == Player.coordinates.y)
 		{
 			water.PickUp();
-			dialogSystem.OnWaterPickUp();
-			var deamon = Instantiate(DemonPrefab);			
-			deamon.transform.position = Player.transform.position;
+			StartCoroutine(DemonSpawn());
         }
+	}
+
+	IEnumerator DemonSpawn()
+	{
+		yield return new WaitForSeconds(3);
+		CleanDialog();
+		dialogSystem.OnWaterPickUp();	
+		var deamon = Instantiate(DemonPrefab);
+		deamon.transform.position = Player.transform.position;
 	}
 
 	private void BeginGame()
 	{   
 		mazeInstance = Instantiate(mazePrefab) as Maze;
 		mazeInstance.Init(mode);
-
-		water = Instantiate(waterPrefab);
-
-		water.coords = new IntVector2(Random.Range(0, MazeCoords.MazeSize.x ), Random.Range(9, MazeCoords.MazeSize.y));
 		
+		water = Instantiate(waterPrefab);
+		water.coords = new IntVector2(Random.Range(0, MazeCoords.MazeSize.x ), Random.Range(9, MazeCoords.MazeSize.y));
+
 		water.transform.position = MazeCoords.CellToWorldCoords(water.coords);
+
+		GameOver = false;
 		//StartCoroutine(mazeInstance.Generate());
 		mazeInstance.Generate();
 		dude.gameObject.transform.position = dudeStartPoint.position;
@@ -137,11 +150,31 @@ public class GameCore : MonoBehaviour {
 			l.transform.parent = mazeInstance.gameObject.transform;
 			l.transform.position = MazeCoords.CellToWorldCoords(MazeCoords.RandomCoords);
 		}
-	}	
-	
+		
+	}
+
+	private void CleanDialog()
+	{
+		foreach (var d in FindObjectsOfType<DialogLine>())
+		{
+			Destroy(d.gameObject);
+		}
+	}
+
+	public bool GameOver { private set; get; }
+
+	public IEnumerator EndGame()
+	{
+		if (GameOver)
+			yield break;
+		GameOver = true;
+		CleanDialog();
+		dialogSystem.OnGameEnd();
+	}
 
 	public void RestartGame()
 	{
+		
 		foreach (var z in zombies)
 		{
 			Destroy(z.gameObject);
@@ -158,7 +191,7 @@ public class GameCore : MonoBehaviour {
 			Destroy(water.gameObject);
 
 		StopAllCoroutines();
-		Destroy(mazeInstance.gameObject);
+		Destroy(mazeInstance.gameObject);		
 		BeginGame();
 	}
 }

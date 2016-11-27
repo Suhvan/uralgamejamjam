@@ -115,6 +115,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000013096787548}
   - 212: {fileID: 212000013524022528}
+  - 60: {fileID: 60000014114016280}
+  - 58: {fileID: 58000010514222742}
+  - 114: {fileID: 114000013273653600}
   m_Layer: 0
   m_Name: Girl
   m_TagString: Untagged
@@ -181,7 +184,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012351763312}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.007295525, y: -0.3581437, z: -0.2437367}
+  m_LocalPosition: {x: -0.007295525, y: -0.3581437, z: -0.3}
   m_LocalScale: {x: 0.33161455, y: 0.33161455, z: 0.33161455}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -219,6 +222,20 @@ Transform:
   - {fileID: 4000012407139244}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!58 &58000010514222742
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014131990450}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.7405008
 --- !u!60 &60000012654412254
 PolygonCollider2D:
   m_ObjectHideFlags: 1
@@ -269,6 +286,26 @@ PolygonCollider2D:
       - {x: -0.004031445, y: -0.61742175}
       - {x: -0.15350257, y: -0.61742204}
       - {x: -0.15629078, y: -0.46729836}
+--- !u!60 &60000014114016280
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014131990450}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  m_Points:
+    m_Paths:
+    - - {x: -0.099999994, y: 0.17}
+      - {x: -0.099999994, y: -0.17}
+      - {x: 0.049999997, y: -0.17}
+      - {x: 0.099999994, y: -0.14}
+      - {x: 0.099999994, y: 0.14999999}
+      - {x: 0.08, y: 0.17}
 --- !u!108 &108000011981889912
 Light:
   m_ObjectHideFlags: 1
@@ -337,6 +374,17 @@ Light:
   m_BounceIntensity: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114000013273653600
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014131990450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78885d0337fedb4419fa654b10501bd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212000013524022528
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -350,7 +398,7 @@ SpriteRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8905380bb867b874b86c8c649fbd40af, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}

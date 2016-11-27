@@ -21,7 +21,10 @@ public class DialogsCore : MonoBehaviour {
 
 	[SerializeField]
 	private List<string> demonDialog;
-	
+
+	[SerializeField]
+	private List<string> endDialog;
+
 	int femaleCallIndex = 0;
 
 	[SerializeField]
@@ -29,9 +32,17 @@ public class DialogsCore : MonoBehaviour {
 
 	[SerializeField]
 	float femaleCallTimer = 0;
+
+
+	[SerializeField]
+	int maleCallCD = 45;
+
+	[SerializeField]
+	float maleCallTimer = 0;
 	// Use this for initialization
 	void Start () {
 		femaleCallTimer = femaleCallCD;
+		maleCallTimer = maleCallCD;
     }
 	
 	// Update is called once per frame
@@ -52,6 +63,15 @@ public class DialogsCore : MonoBehaviour {
 				femaleCallTimer = femaleCallCD;
 			}
 		}
+		else
+		{
+			maleCallTimer -= Time.deltaTime;
+			if (maleCallTimer < 0)
+			{
+				maleCallTimer = maleCallCD;
+				CreateDialog(maleFrustration[Random.Range(0, maleFrustration.Count)]);
+			}
+		}
 
     }
 
@@ -66,6 +86,11 @@ public class DialogsCore : MonoBehaviour {
 	{
 		CreateDialog(new Queue<string>(StartDialog));
     }
+
+	public void OnGameEnd()
+	{
+		CreateDialog(new Queue<string>(endDialog));
+	}
 
 	public void OnWaterPickUp()
 	{
