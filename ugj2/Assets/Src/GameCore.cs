@@ -73,10 +73,15 @@ public class GameCore : MonoBehaviour {
 	[SerializeField]
 	private AudioClip deathSound;
 
+	[SerializeField]
+	ExitPanel endGame;
+
 
 	private void Start()
 	{
 		//Cursor.SetCursor(cursorTexture, Vector3.zero, CursorMode.Auto);
+		foreground.gameObject.SetActive(true);
+		endGame.gameObject.SetActive(false);
 		GameOver = true;
 		instance = this;
 		Destroy( FindObjectOfType<Maze>().gameObject);
@@ -143,7 +148,8 @@ public class GameCore : MonoBehaviour {
 	private float FadeTime = 0.5f;
 
 	private IEnumerator BeginGame()
-	{	
+	{
+		
 		mazeInstance = Instantiate(mazePrefab) as Maze;
 		mazeInstance.Init(mode);
 		
@@ -189,13 +195,17 @@ public class GameCore : MonoBehaviour {
 		GameOver = true;
 		CleanDialog();
 		dialogSystem.OnGameEnd();
+		yield return new WaitForSeconds(6f);
+		endGame.gameObject.SetActive(true);
+		
 	}
 
 	public IEnumerator RestartGame(bool byDeath)
 	{
-		if (GameOver)
+		endGame.gameObject.SetActive(false);
+		if (mazeInstance == null || !mazeInstance.Ready)
 			yield break;
-		GameOver = true;
+		mazeInstance.Ready = false;
 		if (byDeath)
 		{	
             AudioSource.PlayClipAtPoint(deathSound, Player.transform.position);

@@ -119,7 +119,7 @@ public class Maze : MonoBehaviour {
 		return litCells;
     }
 
-	public bool Ready { get; private set; } 
+	public bool Ready { get; set; } 
 
 	//public  IEnumerator Generate()
 	public void Generate()
