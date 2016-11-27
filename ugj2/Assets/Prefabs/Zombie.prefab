@@ -150,7 +150,7 @@ MonoBehaviour:
   zombieAnim: {fileID: 95000013518141590}
   eyes: {fileID: 212000012481276242}
   speed: 0.5
-  srchMaxDepth: 5
+  srchMaxDepth: 8
 --- !u!212 &212000012481276242
 SpriteRenderer:
   m_ObjectHideFlags: 1

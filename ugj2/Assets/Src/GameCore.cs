@@ -15,6 +15,9 @@ public class GameCore : MonoBehaviour {
 	public int ShiftCd = 30;
 
 	[SerializeField]
+	private int ZombieSpawnCd = 15;
+
+	[SerializeField]
 	GameObject BigLight;
 
 	[SerializeField]
@@ -32,6 +35,12 @@ public class GameCore : MonoBehaviour {
 	private float m_shiftCdTime = 0;
 
 	[SerializeField]
+	private float m_zombieCdTime = 0;
+
+	[SerializeField]
+	private int ZombieLimit = 5;
+
+	[SerializeField]
 	Zombie zPrefab;
 
 	public Sprite[] ZombieEyeSprites;
@@ -44,6 +53,7 @@ public class GameCore : MonoBehaviour {
 		Destroy( FindObjectOfType<Maze>().gameObject);
 		BeginGame();
 		m_shiftCdTime = ShiftCd;
+		m_zombieCdTime = ZombieSpawnCd;
     }
 
 	private void Update()
@@ -58,11 +68,6 @@ public class GameCore : MonoBehaviour {
 			BigLight.SetActive(!BigLight.activeSelf);
 		}
 
-		if (Input.GetKeyDown(KeyCode.Z))
-		{
-			zombies.Add(Instantiate(zPrefab));
-		}
-
 		if (mazeInstance!=null && mazeInstance.Ready)
 		{
 			m_shiftCdTime -= Time.deltaTime;
@@ -72,7 +77,17 @@ public class GameCore : MonoBehaviour {
 				m_shiftCdTime = ShiftCd;
 				mazeInstance.ShiftMaze();
 			}
-		}
+
+			if (zombies.Count < ZombieLimit)
+			{
+				m_zombieCdTime -= Time.deltaTime;
+				if (m_zombieCdTime < 0)
+				{
+					m_zombieCdTime = ZombieSpawnCd;
+                    zombies.Add(Instantiate(zPrefab));
+				}
+			}
+        }
 
 		if (water.coords.x == Player.coordinates.x && water.coords.y == Player.coordinates.y)
 		{

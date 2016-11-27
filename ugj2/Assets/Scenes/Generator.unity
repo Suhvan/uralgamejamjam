@@ -175,11 +175,14 @@ MonoBehaviour:
     type: 2}
   mode: 1
   ShiftCd: 6
+  ZombieSpawnCd: 15
   BigLight: {fileID: 1983357106}
   dudeStartPoint: {fileID: 941526044}
   water: {fileID: 1370514356}
   dude: {fileID: 50200993}
   m_shiftCdTime: 0
+  m_zombieCdTime: 0
+  ZombieLimit: 5
   zPrefab: {fileID: 114000010862479966, guid: db297f5b041879b4db1df544e95b2a26, type: 2}
   ZombieEyeSprites:
   - {fileID: 21300000, guid: daf179d1746b75144bc058fb3970cff9, type: 3}
