@@ -34,7 +34,7 @@ public class DialogLine : MonoBehaviour {
 	{
 		yield return new WaitForSeconds(seconds + 0.5f);
 		Destroy(gameObject);
-		if (DialogQueue.Count > 0)
+		if (DialogQueue != null && DialogQueue.Count > 0)
 			GameCore.instance.dialogSystem.CreateDialog(DialogQueue);
 	}
 	

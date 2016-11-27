@@ -10,21 +10,64 @@ public class DialogsCore : MonoBehaviour {
 	[SerializeField]
 	private List<string> StartDialog;
 
+	[SerializeField]
+	private List<string> femaleCall;
+
+	[SerializeField]
+	private List<string> femaleCallEvil;
+
+	[SerializeField]
+	private List<string> maleFrustration;
+
+	[SerializeField]
+	private List<string> demonDialog;
+	
+	int femaleCallIndex = 0;
+
+	[SerializeField]
+	int femaleCallCD = 30;
+
+	[SerializeField]
+	float femaleCallTimer = 0;
 	// Use this for initialization
 	void Start () {
-	
-	}
+		femaleCallTimer = femaleCallCD;
+    }
 	
 	// Update is called once per frame
 	void Update () {
-	
-	}
+		femaleCallTimer -= Time.deltaTime;
+		if(femaleCallTimer <0)
+		{
+			if (femaleCallIndex < femaleCall.Count)
+			{
+				CreateDialog(femaleCall[femaleCallIndex++]);
+			}
+			else if(femaleCallEvil.Count>0)
+			{
+				CreateDialog(femaleCallEvil[Random.Range(0, femaleCallEvil.Count)]);
+            }
+			femaleCallTimer = femaleCallCD;
+        }
 
+    }
+
+	public void DropIndexes()
+	{
+		femaleCallIndex = 0;
+    }
+		 
 
 	public void OnGameStart()
 	{
 		CreateDialog(new Queue<string>(StartDialog));
     }
+
+	public void CreateDialog(string code)
+	{
+		var dialog = Instantiate(dlPrefab);
+		dialog.Init(code, null);
+	}
 
 	public void CreateDialog(Queue<string> dialogQueue)
 	{
