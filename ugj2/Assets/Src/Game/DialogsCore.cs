@@ -36,19 +36,22 @@ public class DialogsCore : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		femaleCallTimer -= Time.deltaTime;
-		if(femaleCallTimer <0)
+		if (!GameCore.instance.PikedUpWater)
 		{
-			if (femaleCallIndex < femaleCall.Count)
+			femaleCallTimer -= Time.deltaTime;
+			if (femaleCallTimer < 0)
 			{
-				CreateDialog(femaleCall[femaleCallIndex++]);
+				if (femaleCallIndex < femaleCall.Count)
+				{
+					CreateDialog(femaleCall[femaleCallIndex++]);
+				}
+				else if (femaleCallEvil.Count > 0)
+				{
+					CreateDialog(femaleCallEvil[Random.Range(0, femaleCallEvil.Count)]);
+				}
+				femaleCallTimer = femaleCallCD;
 			}
-			else if(femaleCallEvil.Count>0)
-			{
-				CreateDialog(femaleCallEvil[Random.Range(0, femaleCallEvil.Count)]);
-            }
-			femaleCallTimer = femaleCallCD;
-        }
+		}
 
     }
 
@@ -63,6 +66,11 @@ public class DialogsCore : MonoBehaviour {
 	{
 		CreateDialog(new Queue<string>(StartDialog));
     }
+
+	public void OnWaterPickUp()
+	{
+		CreateDialog(new Queue<string>(demonDialog));
+	}
 
 	public void CreateDialog(string code)
 	{

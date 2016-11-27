@@ -182,6 +182,7 @@ MonoBehaviour:
   coords:
     x: 0
     y: 0
+  pickUpSound: {fileID: 8300000, guid: de008f0e9579f014083003cb451cfafd, type: 3}
 --- !u!114 &114000013970601552
 MonoBehaviour:
   m_ObjectHideFlags: 1

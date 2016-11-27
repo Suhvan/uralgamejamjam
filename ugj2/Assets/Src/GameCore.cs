@@ -6,6 +6,13 @@ public class GameCore : MonoBehaviour {
 
 	public Maze mazePrefab;
 
+
+	[SerializeField]
+	private Water waterPrefab;
+
+	[SerializeField]
+	private Demon DemonPrefab;
+
 	public Maze.GenerationMode mode;
 
 	public static Maze mazeInstance;
@@ -55,6 +62,8 @@ public class GameCore : MonoBehaviour {
 
 	private List<Zombie> zombies = new List<Zombie>();
 
+	public bool PikedUpWater { get	{ return water == null; } }
+
 	private void Start()
 	{
 		instance = this;
@@ -97,9 +106,12 @@ public class GameCore : MonoBehaviour {
 			}
         }
 
-		if (water.coords.x == Player.coordinates.x && water.coords.y == Player.coordinates.y)
+		if (water != null && water.coords.x == Player.coordinates.x && water.coords.y == Player.coordinates.y)
 		{
-			RestartGame();
+			water.PickUp();
+			dialogSystem.OnWaterPickUp();
+			var deamon = Instantiate(DemonPrefab);			
+			deamon.transform.position = Player.transform.position;
         }
 	}
 
@@ -108,7 +120,10 @@ public class GameCore : MonoBehaviour {
 		mazeInstance = Instantiate(mazePrefab) as Maze;
 		mazeInstance.Init(mode);
 
+		water = Instantiate(waterPrefab);
+
 		water.coords = new IntVector2(Random.Range(0, MazeCoords.MazeSize.x ), Random.Range(9, MazeCoords.MazeSize.y));
+		
 		water.transform.position = MazeCoords.CellToWorldCoords(water.coords);
 		//StartCoroutine(mazeInstance.Generate());
 		mazeInstance.Generate();
@@ -138,6 +153,9 @@ public class GameCore : MonoBehaviour {
 			Destroy(d.gameObject);
 		}
 		dialogSystem.DropIndexes();
+
+		if (water != null)
+			Destroy(water.gameObject);
 
 		StopAllCoroutines();
 		Destroy(mazeInstance.gameObject);
